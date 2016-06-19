@@ -72,7 +72,8 @@ pub fn injury_list_json(
     client: &mut Client,
     access_level: &str,
     version: &str,
-    api_key: &str ) -> Result< Json, RequestError> {
+    api_key: &str,
+    debug_url: bool ) -> Result< Json, RequestError> {
 
     //make a empty string to hold url
     let mut url = String::with_capacity(4000);
@@ -82,6 +83,11 @@ pub fn injury_list_json(
     url.push_str(version);
     url.push_str("/league/injuries.json?api_key=");
     url.push_str(api_key);
+
+    //debug lol
+    if debug_url {
+        println!("{:?}", &url);
+    }
 
     //make request
     let mut response = match client.get(&url).send() {
